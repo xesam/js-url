@@ -1,13 +1,13 @@
 # js-url
 
 ```javascript
-assert.deepEqual(url('https://www.chelaile.net.cn/ab/c/?name=xesam&age=18#t=123456?a[0]=100&a[1]=200&b='), {
+assert.deepEqual(url('https://admin:root@www.chelaile.net.cn:80/abc/def?name=xesam#fragment?a=b#c=d'), {
     scheme: 'https',
-    auth: undefined,
+    auth: 'admin:root',
     host: 'www.chelaile.net.cn',
-    port: undefined,
-    path: '/ab/c/',
-    query: 'name=xesam&age=18',
-    hash: 't=123456?a[0]=100&a[1]=200&b='
+    port: '80',
+    path: '/abc/def',
+    query: 'name=xesam',
+    hash: 'fragment?a=b#c=d'
 }, 'error');
 ```
