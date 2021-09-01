@@ -1,0 +1,23 @@
+{
+  "name": "@xesam/url",
+  "version": "0.0.1",
+  "description": "js parse url string",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xesam/js-url.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/xesam/js-url/issues"
+  },
+  "homepage": "https://github.com/xesam/js-url#readme"
+}

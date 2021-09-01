@@ -1,20 +1,20 @@
-const pattern = /^([^:]*?):\/\/(?:([^:@]*?:[^:@]*)@)?(?:([^:\/\?#]*)?(?::(\d+))?)(\/[^#\?]*)?(?:\?([^#]*))?(?:#(.*))?/;
+const pattern = /^(?:([^:]*?):\/\/(?:([^:@]*?:[^:@]*)@)?(?:([^:\/\?#]*)?(?::(\d+))?))?(\/[^#\?]*)?(?:\?([^#]*))?(?:#(.*))?/;
 
-function fn(url) {
+function parse(url) {
     if (!url) {
         return {};
     }
-    const arr = url.match(pattern);
+    const matches = url.match(pattern) || [];
 
     return {
-        scheme: arr[1],
-        auth: arr[2],
-        host: arr[3],
-        port: arr[4],
-        path: arr[5],
-        query: arr[6],
-        hash: arr[7]
+        scheme: matches[1],
+        auth: matches[2],
+        host: matches[3],
+        port: matches[4],
+        path: matches[5],
+        query: matches[6],
+        hash: matches[7]
     };
 }
 
-module.exports = fn;
+module.exports = parse;
