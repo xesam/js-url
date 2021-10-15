@@ -1,5 +1,5 @@
 const assert = require('assert');
-const url = require('../src/url');
+const url = require('..');
 
 assert.deepEqual(url(null), {}, 'error');
 assert.deepEqual(url(' '), {
