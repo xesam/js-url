@@ -13,6 +13,8 @@
     "type": "git",
     "url": "git+https://github.com/xesam/js-url.git"
   },
+  "devDependencies": {
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",

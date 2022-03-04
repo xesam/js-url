@@ -1,7 +1,14 @@
 # js-url
 
+a simple function to parse url by js.
+
 ```javascript
-assert.deepEqual(url('https://admin:root@www.chelaile.net.cn:80/abc/def?name=xesam#fragment?a=b#c=d'), {
+const comps = url('https://admin:root@www.chelaile.net.cn:80/abc/def?name=xesam#fragment?a=b#c=d')
+console.log(comps);
+```
+output:
+```json5
+{
     scheme: 'https',
     auth: 'admin:root',
     host: 'www.chelaile.net.cn',
@@ -9,9 +16,26 @@ assert.deepEqual(url('https://admin:root@www.chelaile.net.cn:80/abc/def?name=xes
     path: '/abc/def',
     query: 'name=xesam',
     hash: 'fragment?a=b#c=d'
-}, 'error');
+}
 ```
 
+```javascript
+const parse = url.create(function (data) {
+                      if (data.scheme) {
+                          data.scheme = data.scheme.toUpperCase();
+                      }
+                      return data;
+                  });
+const comps = parse('https://admin:root@www.chelaile.net.cn:80/abc/def?name=xesam#fragment?a=b#c=d')
+console.log(comps);
+```
+output:
+```json5
+{
+    scheme: 'HTTPS',
+    ...
+}
+```
 ## Changelog
 
 ### 20211015
