@@ -19,6 +19,8 @@ output:
 }
 ```
 
+config a pre-process before return
+
 ```javascript
 const parse = url.create(function (data) {
                       if (data.scheme) {

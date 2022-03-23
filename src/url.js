@@ -5,8 +5,7 @@ function parse(url, process = x => x) {
         return {};
     }
     const matches = url.match(pattern) || [];
-
-    const components = {
+    return process({
         scheme: matches[1],
         auth: matches[2],
         host: matches[3],
@@ -14,8 +13,7 @@ function parse(url, process = x => x) {
         path: matches[5],
         query: matches[6],
         hash: matches[7]
-    };
-    return process(components);
+    });
 }
 
 parse.create = function (process) {
