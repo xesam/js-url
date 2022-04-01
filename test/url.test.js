@@ -241,3 +241,14 @@ assert.deepEqual(url('/abc?'), {
     query: '',
     hash: undefined
 }, 'error');
+assert.deepEqual(url('?'), {
+    protocol: undefined,
+    auth: undefined,
+    host: undefined,
+    hostname: undefined,
+    port: undefined,
+    pathname: undefined,
+    search: '?',
+    query: '',
+    hash: undefined
+}, 'error');
