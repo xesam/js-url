@@ -3,202 +3,241 @@ const url = require('..');
 
 assert.deepEqual(url(null), {}, 'error');
 assert.deepEqual(url(' '), {
-    scheme: undefined,
+    protocol: undefined,
     auth: undefined,
     host: undefined,
+    hostname: undefined,
     port: undefined,
-    path: undefined,
+    pathname: undefined,
+    search: undefined,
     query: undefined,
     hash: undefined
 }, 'error');
 
 assert.deepEqual(url('https://xesam.github.io'), {
-    scheme: 'https',
     auth: undefined,
-    host: 'xesam.github.io',
     port: undefined,
-    path: undefined,
+    pathname: undefined,
+    search: undefined,
     query: undefined,
-    hash: undefined
+    hash: undefined,
+    protocol: 'https:',
+    host: 'xesam.github.io',
+    hostname: 'xesam.github.io'
 }, 'error');
 
 assert.deepEqual(url('https://xesam.github.io:443'), {
-    scheme: 'https',
     auth: undefined,
-    host: 'xesam.github.io',
     port: '443',
-    path: undefined,
+    pathname: undefined,
+    search: undefined,
     query: undefined,
-    hash: undefined
+    hash: undefined,
+    protocol: 'https:',
+    host: 'xesam.github.io:443',
+    hostname: 'xesam.github.io'
 }, 'error');
 
-assert.deepEqual(url('https://admin:root@xesam.github.io:80'), {
-    scheme: 'https',
+assert.deepEqual(url('https://admin:root@xesam.github.io:443'), {
     auth: 'admin:root',
-    host: 'xesam.github.io',
-    port: '80',
-    path: undefined,
+    port: '443',
+    pathname: undefined,
+    search: undefined,
     query: undefined,
-    hash: undefined
+    hash: undefined,
+    protocol: 'https:',
+    host: 'xesam.github.io:443',
+    hostname: 'xesam.github.io'
+}, 'error');
+
+assert.deepEqual(url('https://admin:root@xesam.github.io:80/'), {
+    auth: 'admin:root',
+    port: '80',
+    pathname: '/',
+    search: undefined,
+    query: undefined,
+    hash: undefined,
+    protocol: 'https:',
+    host: 'xesam.github.io:80',
+    hostname: 'xesam.github.io'
 }, 'error');
 
 assert.deepEqual(url('https://admin:root@xesam.github.io:80?name=xesam'), {
-    scheme: 'https',
+    protocol: 'https:',
     auth: 'admin:root',
-    host: 'xesam.github.io',
+    host: 'xesam.github.io:80',
+    hostname: 'xesam.github.io',
     port: '80',
-    path: undefined,
+    pathname: undefined,
+    search: '?name=xesam',
     query: 'name=xesam',
     hash: undefined
 }, 'error');
 
 assert.deepEqual(url('https://admin:root@xesam.github.io:80?name=xesam?age=18'), {
-    scheme: 'https',
+    protocol: 'https:',
     auth: 'admin:root',
-    host: 'xesam.github.io',
+    host: 'xesam.github.io:80',
+    hostname: 'xesam.github.io',
     port: '80',
-    path: undefined,
+    pathname: undefined,
+    search: '?name=xesam?age=18',
     query: 'name=xesam?age=18',
     hash: undefined
 }, 'error');
 
-assert.deepEqual(url('https://admin:root@xesam.github.io:80/'), {
-    scheme: 'https',
-    auth: 'admin:root',
-    host: 'xesam.github.io',
-    port: '80',
-    path: '/',
-    query: undefined,
-    hash: undefined
-}, 'error');
-
-assert.deepEqual(url('https://admin:root@xesam.github.io:80/?name=xesam'), {
-    scheme: 'https',
-    auth: 'admin:root',
-    host: 'xesam.github.io',
-    port: '80',
-    path: '/',
-    query: 'name=xesam',
-    hash: undefined
-}, 'error');
-
 assert.deepEqual(url('https://admin:root@xesam.github.io:80/abc/def'), {
-    scheme: 'https',
+    protocol: 'https:',
     auth: 'admin:root',
-    host: 'xesam.github.io',
+    host: 'xesam.github.io:80',
+    hostname: 'xesam.github.io',
     port: '80',
-    path: '/abc/def',
+    pathname: '/abc/def',
+    search: undefined,
     query: undefined,
+    hash: undefined
+}, 'error');
+
+assert.deepEqual(url('https://admin:root@xesam.github.io:80/?name=xesam?age=18'), {
+    protocol: 'https:',
+    auth: 'admin:root',
+    host: 'xesam.github.io:80',
+    hostname: 'xesam.github.io',
+    port: '80',
+    pathname: '/',
+    search: '?name=xesam?age=18',
+    query: 'name=xesam?age=18',
     hash: undefined
 }, 'error');
 
 assert.deepEqual(url('https://admin:root@xesam.github.io:80/abc/def?name=xesam'), {
-    scheme: 'https',
+    protocol: 'https:',
     auth: 'admin:root',
-    host: 'xesam.github.io',
+    host: 'xesam.github.io:80',
+    hostname: 'xesam.github.io',
     port: '80',
-    path: '/abc/def',
+    pathname: '/abc/def',
+    search: '?name=xesam',
     query: 'name=xesam',
     hash: undefined
 }, 'error');
 
 assert.deepEqual(url('https://admin:root@xesam.github.io:80/abc/def?name=xesam#fragment?a=b'), {
-    scheme: 'https',
+    protocol: 'https:',
     auth: 'admin:root',
-    host: 'xesam.github.io',
+    host: 'xesam.github.io:80',
+    hostname: 'xesam.github.io',
     port: '80',
-    path: '/abc/def',
+    pathname: '/abc/def',
+    search: '?name=xesam',
     query: 'name=xesam',
-    hash: 'fragment?a=b'
+    hash: '#fragment?a=b'
 }, 'error');
 
 assert.deepEqual(url('https://admin:root@xesam.github.io:80/abc/def?name=xesam#fragment?a=b#c=d'), {
-    scheme: 'https',
+    protocol: 'https:',
     auth: 'admin:root',
-    host: 'xesam.github.io',
+    host: 'xesam.github.io:80',
+    hostname: 'xesam.github.io',
     port: '80',
-    path: '/abc/def',
+    pathname: '/abc/def',
+    search: '?name=xesam',
     query: 'name=xesam',
-    hash: 'fragment?a=b#c=d'
+    hash: '#fragment?a=b#c=d'
 }, 'error');
 
-assert.deepEqual(url('https://xesam.github.io:8080/ab/c/?name=xesam&age=18#t=123456?a[0]=100&a[1]=200&b='), {
-    scheme: 'https',
+assert.deepEqual(url('https://xesam.github.io:80/abc/def?name=xesam&age=18#t=123456?a[0]=100&a[1]=200&b='), {
+    protocol: 'https:',
     auth: undefined,
-    host: 'xesam.github.io',
-    port: '8080',
-    path: '/ab/c/',
+    host: 'xesam.github.io:80',
+    hostname: 'xesam.github.io',
+    port: '80',
+    pathname: '/abc/def',
+    search: '?name=xesam&age=18',
     query: 'name=xesam&age=18',
-    hash: 't=123456?a[0]=100&a[1]=200&b='
+    hash: '#t=123456?a[0]=100&a[1]=200&b='
 }, 'error');
-
 
 assert.deepEqual(url('https://xesam.github.io/ab/c/?name=xesam&age=18#t=123456?a[0]=100&a[1]=200&b='), {
-    scheme: 'https',
+    protocol: 'https:',
     auth: undefined,
     host: 'xesam.github.io',
+    hostname: 'xesam.github.io',
     port: undefined,
-    path: '/ab/c/',
+    pathname: '/ab/c/',
+    search: '?name=xesam&age=18',
     query: 'name=xesam&age=18',
-    hash: 't=123456?a[0]=100&a[1]=200&b='
+    hash: '#t=123456?a[0]=100&a[1]=200&b='
 }, 'error');
 
 assert.deepEqual(url('https://xesam.github.io?name=xesam&age=18#t=123456?a[0]=100&a[1]=200&b='), {
-    scheme: 'https',
+    protocol: 'https:',
     auth: undefined,
     host: 'xesam.github.io',
+    hostname: 'xesam.github.io',
     port: undefined,
-    path: undefined,
+    pathname: undefined,
+    search: '?name=xesam&age=18',
     query: 'name=xesam&age=18',
-    hash: 't=123456?a[0]=100&a[1]=200&b='
+    hash: '#t=123456?a[0]=100&a[1]=200&b='
 }, 'error');
 
 assert.deepEqual(url('https://xesam.github.io/#t=123456?a[0]=100&a[1]=200&b='), {
-    scheme: 'https',
+    protocol: 'https:',
     auth: undefined,
     host: 'xesam.github.io',
+    hostname: 'xesam.github.io',
     port: undefined,
-    path: '/',
+    pathname: '/',
+    search: undefined,
     query: undefined,
-    hash: 't=123456?a[0]=100&a[1]=200&b='
+    hash: '#t=123456?a[0]=100&a[1]=200&b='
 }, 'error');
 
 assert.deepEqual(url('https://xesam.github.io#t=123456?a[0]=100&a[1]=200&b='), {
-    scheme: 'https',
+    protocol: 'https:',
     auth: undefined,
     host: 'xesam.github.io',
+    hostname: 'xesam.github.io',
     port: undefined,
-    path: undefined,
+    pathname: undefined,
+    search: undefined,
     query: undefined,
-    hash: 't=123456?a[0]=100&a[1]=200&b='
+    hash: '#t=123456?a[0]=100&a[1]=200&b='
 }, 'error');
 
 assert.deepEqual(url('/abc#t=123456?a[0]=100&a[1]=200&b='), {
-    scheme: undefined,
+    protocol: undefined,
     auth: undefined,
     host: undefined,
+    hostname: undefined,
     port: undefined,
-    path: '/abc',
+    pathname: '/abc',
+    search: undefined,
     query: undefined,
-    hash: 't=123456?a[0]=100&a[1]=200&b='
+    hash: '#t=123456?a[0]=100&a[1]=200&b='
 }, 'error');
 
 assert.deepEqual(url('/abc?name=xesam#t=123456?a[0]=100&a[1]=200&b='), {
-    scheme: undefined,
+    protocol: undefined,
     auth: undefined,
     host: undefined,
+    hostname: undefined,
     port: undefined,
-    path: '/abc',
+    pathname: '/abc',
+    search: '?name=xesam',
     query: 'name=xesam',
-    hash: 't=123456?a[0]=100&a[1]=200&b='
+    hash: '#t=123456?a[0]=100&a[1]=200&b='
 }, 'error');
 
 assert.deepEqual(url('/abc?'), {
-    scheme: undefined,
+    protocol: undefined,
     auth: undefined,
     host: undefined,
+    hostname: undefined,
     port: undefined,
-    path: '/abc',
+    pathname: '/abc',
+    search: '?',
     query: '',
     hash: undefined
 }, 'error');

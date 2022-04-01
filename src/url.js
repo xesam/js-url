@@ -1,4 +1,4 @@
-const pattern = /^(?:([^:]*?):\/\/(?:([^:@]*?:[^:@]*)@)?(?:([^:\/\?#]*)?(?::(\d+))?))?(\/[^#\?]*)?(?:\?([^#]*))?(?:#(.*))?/;
+const pattern = /^(?:([^:]*?:)\/\/(?:([^:@]*?:[^:@]*)@)?((?:([^:\/\?#]*)?(?::(\d+))?)))?(\/[^#\?]*)?(\?([^#]*))?(?:(#.*))?/;
 
 function parse(url) {
     if (!url) {
@@ -6,13 +6,15 @@ function parse(url) {
     }
     const groups = url.match(pattern) || [];
     return {
-        scheme: groups[1],
+        protocol: groups[1],
         auth: groups[2],
         host: groups[3],
-        port: groups[4],
-        path: groups[5],
-        query: groups[6],
-        hash: groups[7]
+        hostname: groups[4],
+        port: groups[5],
+        pathname: groups[6],
+        search: groups[7],
+        query: groups[8],
+        hash: groups[9]
     };
 }
 
