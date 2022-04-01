@@ -9,12 +9,14 @@ console.log(comps);
 output:
 ```json5
 {
-    scheme: 'https',
+    protocol: 'https:',
     auth: 'admin:root',
-    host: 'www.chelaile.net.cn',
+    host: 'www.chelaile.net.cn:80',
+    hostname: 'www.chelaile.net.cn',
     port: '80',
-    path: '/abc/def',
+    pathname: '/abc/def',
+    search: '?name=xesam',
     query: 'name=xesam',
-    hash: 'fragment?a=b#c=d'
+    hash: '#fragment?a=b#c=d'
 }
 ```

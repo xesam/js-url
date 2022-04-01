@@ -1,7 +1,7 @@
 {
   "name": "@xesam/url",
   "version": "0.0.3",
-  "description": "a tiny url parser",
+  "description": "a tiny vanilla js url parser",
   "main": "index.js",
   "directories": {
     "test": "test"
